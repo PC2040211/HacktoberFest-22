@@ -1,12 +1,8 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
 const int N = 2001;
-
 int s[N], v[N];
 int memo[N][N];
-
 // O(n*size)
 int knapsack(int index, int size)
 {
