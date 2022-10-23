@@ -1,0 +1,70 @@
+
+import java.io.*;
+import java.util.*;
+
+class Anish {
+
+	public static int countUnique(int arr[], int n)
+	{
+
+		int[] ngl = new int[n];
+		int[] ngr = new int[n];
+		Stack<Integer> st = new Stack<>();
+		HashSet<Integer> s = new HashSet<>();
+		
+		ngl[0] = -1;
+		st.push(arr[0]);
+		for (int i = 1; i < n; i++) {
+			while (st.size() > 0 &&
+				arr[i] > st.peek()) {
+				st.pop();
+			}
+			if (st.size() == 0) {
+				ngl[i] = -1;
+			}
+			else {
+				ngl[i] = st.peek();
+			}
+			st.push(arr[i]);
+		}
+		while (st.size() > 0) {
+			st.pop();
+		}
+		
+
+		ngr[n - 1] = -1;
+		st.push(arr[n - 1]);
+		for (int i = n - 2; i >= 0; i--) {
+			while (st.size() > 0 &&
+				arr[i] >= st.peek()) {
+				st.pop();
+			}
+			if (st.size() != 0) {
+				ngr[i] = st.peek();
+			}
+			else {
+				ngr[i] = -1;
+			}
+			st.push(arr[i]);
+		}
+		
+		for (int i = 0; i < n; i++) {
+			if (ngl[i] != -1) {
+				s.add(ngl[i] - arr[i]);
+			}
+			if (ngr[i] != -1) {
+				s.add(ngr[i] - arr[i]);
+			}
+		}
+		
+		return s.size();
+	}
+
+	public static void main(String[] args)
+	{
+		int N = 4;
+		int arr[] = { 5, 2, 3, 8 };
+		System.out.println(countUnique(
+		arr, N));
+	}
+}
